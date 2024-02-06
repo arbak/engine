@@ -2,7 +2,12 @@ import os
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+logger.info("This message will be logged to application logs")
 from azure.identity import ManagedIdentityCredential
 app = Flask(__name__)
 
@@ -12,7 +17,8 @@ def index():
    print('Request for index page received')
    cred = ManagedIdentityCredential(client_id="6bbe6b4c-aee5-43f6-8845-1646ddb3d95b")
    token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
-   print(token.token)
+   content = token.token
+   logger.info("This message will be logged to application logs: " + str(content[0:2]) + ".")
    return render_template('index.html')
 
 @app.route('/favicon.ico')
