@@ -10,9 +10,9 @@ app = Flask(__name__)
 @app.route('/')
 def index():
    print('Request for index page received')
-   cred = ManagedIdentityCredential()
-   token = cred.get_token("https://ossrdbms-aad.database.windows.net/.default").token
-   print(token)
+   # cred = ManagedIdentityCredential()
+   # token = cred.get_token("https://ossrdbms-aad.database.windows.net/.default").token
+   # print(token)
    return render_template('index.html')
 
 @app.route('/favicon.ico')
