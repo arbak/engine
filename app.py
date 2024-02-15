@@ -29,10 +29,14 @@ def index():
 
     # Acquire the access token
     accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
+    logger.info("Access Token: {}".format(accessToken))
 
     # Combine the token with the connection string from the environment variables added by Service Connector to
     # establish the connection.
     conn_string = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
+    logger.info("Connection established")
+    logger.info("This conn string: {}".format(conn_string))
+
     connection = psycopg2.connect(conn_string + ' password=' + accessToken.token)
     print("Connection established")
     logger.info("Connection established")
