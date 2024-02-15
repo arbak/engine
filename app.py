@@ -2,7 +2,7 @@ import os
 import logging
 import psycopg2
 from dotenv import load_dotenv
-from azure.identity import ManagedIdentityCredential
+# from azure.identity import ManagedIdentityCredential
 from azure.identity import DefaultAzureCredential
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
