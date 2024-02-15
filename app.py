@@ -28,6 +28,8 @@ def index():
 
     # Acquire AAD token
     cred = ManagedIdentityCredential(client_id=os.environ.get('CLIENT_ID'))
+    logger.info("Client ID: " + cred + ".")
+    print("Client ID: " + cred + ".")
     token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
     access_token = token.token
 
