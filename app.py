@@ -22,7 +22,7 @@ def index():
     print('Request for index page received')
 
     # For user-assigned identity.
-    managed_identity_client_id = os.getenv('AZURE_POSTGRESQL_CLIENTID')
+    managed_identity_client_id = os.environ.get('AZURE_POSTGRESQL_CLIENTID')
     cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
 
     logger.info("This Client new Identificatie ID: {}".format(cred))
@@ -32,7 +32,7 @@ def index():
 
     # Combine the token with the connection string from the environment variables added by Service Connector to
     # establish the connection.
-    conn_string = os.getenv('AZURE_POSTGRESQL_CONNECTIONSTRING')
+    conn_string = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
     connection = psycopg2.connect(conn_string + ' password=' + accessToken.token)
     print("Connection established")
     logger.info("Connection established")
