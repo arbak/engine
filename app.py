@@ -23,7 +23,7 @@ def index():
     # Azure PostgreSQL connection parameters
     host = os.environ.get('HOST')
     dbname = os.environ.get('DATABASE')
-    user = os.environ.get('USERNAME')
+    user = os.environ.get('USER_IDENTITY')
     sslmode = 'require'
 
     # Acquire AAD token
