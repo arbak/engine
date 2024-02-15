@@ -33,12 +33,12 @@ def index():
     client_id = os.environ.get('CLIENT_ID')
     cred = DefaultAzureCredential(client_id=client_id)
     # Logging the client ID
-    logger.info("This Client Identificatie ID: {}".format(client_id))
+    logger.info("This new Client Identificatie ID: {}".format(client_id))
 
     token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
     access_token = token.token
 
-    logger.info("This message about token: {}".format(str(access_token[0:2])))
+    logger.info("This message about new token: {}".format(str(access_token[0:2])))
 
     conn_string = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, access_token,
                                                                                  sslmode)
