@@ -2,7 +2,7 @@ import os
 import logging
 import psycopg2
 from dotenv import load_dotenv
-from azure.identity import DefaultAzureCredential
+from azure.identity import ManagedIdentityCredential
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 
@@ -30,18 +30,19 @@ def index():
 
     # Retrieving the client ID from environment variable
     client_id = os.environ.get('CLIENT_ID')
-    cred = DefaultAzureCredential(client_id=client_id)
+    cred = ManagedIdentityCredential(client_id=client_id)
     # Logging the client ID
-    logger.info("This new Client Identificatie ID: {}".format(client_id))
+    logger.info("This Client new Identificatie ID: {}".format(client_id))
+
     token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
     access_token = token.token
 
-    logger.info("This message about new token: {}".format(str(access_token[0:2])))
+    logger.info("This message new about token: {}".format(str(access_token[0:2])))
 
     conn_string = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, access_token,
                                                                                  sslmode)
     conn = psycopg2.connect(conn_string)
-    logger.info("User name to test: " + user + ".")
+    logger.info("User name new to test: " + user + ".")
 
     try:
         logger.info("Connection established")
