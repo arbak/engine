@@ -5,6 +5,8 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
 cryptography==42.0.2
+elastic-transport==8.12.0
+elasticsearch==8.12.0
 Flask==2.2.2
 gunicorn==21.2.0
 idna==3.6
