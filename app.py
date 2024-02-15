@@ -34,7 +34,6 @@ def index():
     cred = DefaultAzureCredential(client_id=client_id)
     # Logging the client ID
     logger.info("This new Client Identificatie ID: {}".format(client_id))
-
     token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
     access_token = token.token
 
