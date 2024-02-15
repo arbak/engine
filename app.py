@@ -19,7 +19,6 @@ def index():
    logger.info("This client_id : : " + cred + ".")
    token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
    logger.info("This token url : : " + token + ".")
-   logger.info("This message will be logged to application logs: " + str(content[0:2]) + ".")
    content = token.token
    logger.info("This message will be logged to application logs: " + str(content[0:2]) + ".")
    return render_template('index.html')
