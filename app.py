@@ -17,7 +17,7 @@ def index():
    print('Request for index page received')
 
    # Retrieving the client ID from environment variable
-   client_id = os.getenv('CLIENT_ID')
+   client_id = os.environ.get('CLIENT_ID')
 
    # Creating the ManagedIdentityCredential object
    cred = ManagedIdentityCredential(client_id=client_id)
