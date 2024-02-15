@@ -15,11 +15,10 @@ load_dotenv()
 @app.route('/')
 def index():
    print('Request for index page received')
-   # cred = ManagedIdentityCredential(client_id=os.getenv('CLIENT_ID'))
-   # token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
-   # content = token.token
-   logger.info("This message will be logged to application logs")
-   # logger.info("This message will be logged to application logs: " + str(content[0:2]) + ".")
+   cred = ManagedIdentityCredential(client_id=os.getenv('CLIENT_ID'))
+   token = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
+   content = token.token
+   logger.info("This message will be logged to application logs: " + str(content[0:2]) + ".")
    return render_template('index.html')
 
 @app.route('/favicon.ico')
