@@ -3,6 +3,7 @@ import logging
 import psycopg2
 from dotenv import load_dotenv
 from azure.identity import ManagedIdentityCredential
+from azure.identity import DefaultAzureCredential
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 
@@ -30,7 +31,7 @@ def index():
 
     # Retrieving the client ID from environment variable
     client_id = os.environ.get('CLIENT_ID')
-    cred = ManagedIdentityCredential(client_id=client_id)
+    cred = DefaultAzureCredential(client_id=client_id)
     # Logging the client ID
     logger.info("This Client Identificatie ID: {}".format(client_id))
 
