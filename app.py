@@ -39,12 +39,12 @@ def index():
     logger.info("This conn string: {}".format(conn_string))
 
     connection = psycopg2.connect(conn_string + ' password=' + accessToken.token)
-    print("Connection established")
-    logger.info("Connection established")
+    logger.info("Postgresql connection: {}".format(connection))
 
     try:
-        logger.info("Connection established")
+
         cursor = connection.cursor()
+        logger.info("This conn string: {}".format(cursor))
 
         # Example parameterized query
         query = "SELECT identificatie FROM public.bag_panden ORDER BY id ASC LIMIT 7"
