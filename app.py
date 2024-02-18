@@ -38,8 +38,18 @@ def index():
     logger.info("Connection established")
     logger.info("This conn string: {}".format(conn_string))
 
-    connection = psycopg2.connect(conn_string + ' password=' + accessToken.token)
-    logger.info("Postgresql connection: {}".format(connection))
+    # Print out the connection string before attempting to connect
+    logger.info("Attempting to establish connection with connection string: {}".format(conn_string))
+
+    # Print out the full connection string including the password token
+    full_conn_string = conn_string + ' password=' + accessToken.token
+    logger.info("Full connection string: {}".format(full_conn_string))
+
+    try:
+        connection = psycopg2.connect(full_conn_string)
+        logger.info("Postgresql connection established successfully")
+    except psycopg2.Error as e:
+        logger.error("Error connecting to PostgreSQL: {}".format(e))
 
     try:
 
