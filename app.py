@@ -1,6 +1,7 @@
 import os
 from flask import Response
 import logging
+import subprocess
 import psycopg2
 from dotenv import load_dotenv
 from azure.identity import ManagedIdentityCredential
@@ -37,6 +38,18 @@ def index():
     conn_string = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
     logger.info("Connection established")
     logger.info("This conn string: {}".format(conn_string))
+
+    # Define the hostname to ping
+    hostname_to_ping = "dev-bbn1-01-dbhost.postgres.database.azure.com"
+
+    # Execute the ping command
+    ping_process = subprocess.run(["ping", "-c", "1", hostname_to_ping], capture_output=True, text=True)
+
+    # Check the return code to determine if the ping was successful
+    if ping_process.returncode == 0:
+        logger.info("Host {} is reachable".format(hostname_to_ping))
+    else:
+        logger.error("Host {} is not reachable".format(hostname_to_ping))
 
     # Print out the connection string before attempting to connect
     logger.info("Attempting to establish connection with connection string: {}".format(conn_string))
