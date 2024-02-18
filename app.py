@@ -1,4 +1,5 @@
 import os
+from flask import Response
 import logging
 import psycopg2
 from dotenv import load_dotenv
@@ -40,9 +41,36 @@ def index():
     connection = psycopg2.connect(conn_string + ' password=' + accessToken.token)
     print("Connection established")
     logger.info("Connection established")
-    connection.close()
 
-    return render_template('index.html')
+    try:
+        logger.info("Connection established")
+        cursor = connection.cursor()
+
+        # Example parameterized query
+        query = "SELECT identificatie FROM public.bag_panden ORDER BY id ASC LIMIT 7"
+
+        # Execute query with parameters
+        cursor.execute(query)
+
+        # Fetch results
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+            logger.info("This conn string: {}".format(row))
+
+        # Close cursor and connection
+        cursor.close()
+        connection.close()
+
+        # Returning rows list as plain text response
+        rows_text = '\n'.join([str(row) for row in rows])
+        return Response(rows_text, mimetype='text/plain')
+
+
+    except psycopg2.Error as e:
+        print(f"Error: {e}")
+        # In case of error, return an error response
+        return Response("Error occurred while fetching data.", status=500, mimetype='text/plain')
 
 
 @app.route('/favicon.ico')
